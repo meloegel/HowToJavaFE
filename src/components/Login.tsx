@@ -1,4 +1,7 @@
-import React, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
+import * as yup from "yup";
+import loginSchema from "../validation/loginSchema";
+
 
 const initialFormValues = {
     username: "",
@@ -22,19 +25,53 @@ const onInputChange = (evt: any) => {
     const name = evt.target.name;
     const value = evt.target.value;
 
+    yup.reach(loginSchema, name)
+    .validate(value)
+    .then((valid: any) => {
+        setFormErrors({
+            ...formErrors,
+            [name]: "",
+        })
+    })
+    .catch((error: any) => {
+        setFormErrors({
+            ...formErrors,
+            [name]: error.errors[0],
+        })
+    })
     setFormValues({
         ...formValues,
         [name]:value
-    })
+    });
+};
+
+const onSubmit = (evt:any) => {
+    evt.preventDefault();
+    // const headers = {
+    //     username: formValues.username,
+    //     password: formValues.password
+    // }
+    // login("http://localhost:2019/login", {
+    //     headers: headers,
+    //     method: "POST"
+    // }).then((res: any) => {
+    //     localStorage.setItem('token', res.data.token)
+    //     localStorage.setItem('userId', res.data.user.id)
+    // }).catch((error) =>
+    //     console.log(error)
+    // )
 }
 
+
 useEffect(() => {
-    
-})
+    loginSchema.isValid(formValues).then((valid) => {
+        setDisabled(!valid);
+    });
+}, [formValues]);
 
     return (
         <div>
-            <form>
+            <form onSubmit={onSubmit}>
                 <h2>Login</h2>
                 <input 
                     value={formValues.username}
@@ -59,7 +96,9 @@ useEffect(() => {
                     </div>
                     <div>
                         <h3>Login</h3>
-                        <button onClick={() => {}}>Login</button>
+                        <button
+                        disabled={disabled} 
+                        onClick={() => {}}>Login</button>
                     </div>
                 </div>
             </form>
