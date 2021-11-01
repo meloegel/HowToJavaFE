@@ -47,19 +47,31 @@ const onInputChange = (evt: any) => {
 
 const onSubmit = (evt:any) => {
     evt.preventDefault();
-    // const headers = {
-    //     username: formValues.username,
-    //     password: formValues.password
-    // }
-    // login("http://localhost:2019/login", {
-    //     headers: headers,
-    //     method: "POST"
-    // }).then((res: any) => {
-    //     localStorage.setItem('token', res.data.token)
-    //     localStorage.setItem('userId', res.data.user.id)
-    // }).catch((error) =>
-    //     console.log(error)
-    // )
+    const body = {
+        grant_type: "password",
+        username: formValues.username,
+        password: formValues.password,
+    }
+    const headers = {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`
+    }
+    const grant_type = `grant_type=password&username=${formValues.username}&password=${formValues.password}`
+    console.log(JSON.stringify(body))
+    console.log(headers)
+    fetch(`http://localhost:2019/login`, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(body)
+    }).then((res: any) => {
+        if (res.status === 200) {
+            console.log("Success")
+        }
+        localStorage.setItem('token', res.data.token)
+        localStorage.setItem('userId', res.data.user.id)
+    }).catch((error) =>
+        console.log(error)
+    )
 }
 
 
