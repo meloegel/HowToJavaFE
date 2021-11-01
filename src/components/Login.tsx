@@ -1,6 +1,7 @@
 import {useState, useEffect} from "react";
 import * as yup from "yup";
 import loginSchema from "../validation/loginSchema";
+import useFetch from "../hooks/useFetch";
 
 
 const initialFormValues = {
@@ -19,7 +20,7 @@ export default function Login() {
 const [formValues, setFormValues] = useState(initialFormValues);
 const [formErrors, setFormErrors] = useState(initialFormErrors);
 const [disabled, setDisabled] = useState(initalDisabled);
-
+const [status, request, data] = useFetch<any>();
 
 const onInputChange = (evt: any) => {
     const name = evt.target.name;
@@ -59,10 +60,14 @@ const onSubmit = (evt:any) => {
     const grant_type = `grant_type=password&username=${formValues.username}&password=${formValues.password}`
     console.log(JSON.stringify(body))
     console.log(headers)
-    fetch(`http://localhost:2019/login`, {
+    // fetch(`http://localhost:2019/login`, {
+        // method: "POST",
+        // headers: headers,
+        // body: JSON.stringify(body)
+    request(`http://localhost:2019/login`,{
         method: "POST",
+        requestBody: JSON.stringify(body),
         headers: headers,
-        body: JSON.stringify(body)
     }).then((res: any) => {
         if (res.status === 200) {
             console.log("Success")
