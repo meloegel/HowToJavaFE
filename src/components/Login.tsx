@@ -20,7 +20,7 @@ export default function Login() {
 const [formValues, setFormValues] = useState(initialFormValues);
 const [formErrors, setFormErrors] = useState(initialFormErrors);
 const [disabled, setDisabled] = useState(initalDisabled);
-const [status, request, data] = useFetch<any>();
+const [ , request, data] = useFetch<any>();
 
 const onInputChange = (evt: any) => {
     const name = evt.target.name;
@@ -57,23 +57,17 @@ const onSubmit = (evt:any) => {
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`
     }
-    const grant_type = `grant_type=password&username=${formValues.username}&password=${formValues.password}`
-    console.log(JSON.stringify(body))
-    console.log(headers)
-    // fetch(`http://localhost:2019/login`, {
-        // method: "POST",
-        // headers: headers,
-        // body: JSON.stringify(body)
-    request(`http://localhost:2019/login`,{
+    const grant_type = `?grant_type=password&username=${formValues.username}&password=${formValues.password}`
+   
+    request(`http://localhost:2019/login${grant_type}`,  {
         method: "POST",
         requestBody: JSON.stringify(body),
-        headers: headers,
-    }).then((res: any) => {
-        if (res.status === 200) {
+        headers: headers
+    }).then((res) => {
+        if (data) {
             console.log("Success")
+            localStorage.setItem('token', `Bearer ${data.access_token}`)
         }
-        localStorage.setItem('token', res.data.token)
-        localStorage.setItem('userId', res.data.user.id)
     }).catch((error) =>
         console.log(error)
     )

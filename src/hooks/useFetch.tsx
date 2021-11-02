@@ -9,10 +9,6 @@ type Options = {
   headers?: Headers;
 };
 
-type GrantType = {
-    
-}
-
 type Headers = {
   [key: string]: string;
 };
