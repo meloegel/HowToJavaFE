@@ -8,8 +8,7 @@ export default function AuthenticatedRouter() {
         <BrowserRouter>
             <UserContextProvider>
                 <Switch>
-                    <Route path="/login" component={Login}/>
-
+                    <Route exact path="/" component={Login}/>
                 </Switch>
             </UserContextProvider>
         </BrowserRouter>

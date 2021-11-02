@@ -1,18 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AuthenticatedRouter from './components/AuthenticatedRouter';
-import Login from './components/Login';
+
 
 
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
-    {/* <AuthenticatedRouter /> */}
-    <Login />
+    <AuthenticatedRouter />
   </React.StrictMode>,
   document.getElementById('root')
 );
