@@ -10,9 +10,7 @@ const registrationSchema =
             .trim()
             .min(4,"Please enter your password")
             .required("Please enter your password"),
-        passwordConfirm: yup.string()
-            .oneOf([yup.ref("password"), null], "passwords must match"),
-        email: yup.string()
+        primaryemail: yup.string()
             .email("Must be a valid email address")
     })
 

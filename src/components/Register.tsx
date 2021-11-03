@@ -8,15 +8,13 @@ import { useHistory } from "react-router";
 const initialFormValues = {
     username: "",
     password: "",
-    passwordConfirm: "",
-    email: ""
+    primaryemail: ""
 }
 
 const initialFormErrors = {
     username: "",
     password: "",
-    passwordConfirm: "",
-    email: ""
+    primaryemail: ""
 }
 
 const initalDisabled = true;
@@ -54,29 +52,27 @@ const onInputChange = (evt: any) => {
 
 const onSubmit = (evt:any) => {
     evt.preventDefault();
-    // const body = {
-    //     grant_type: "password",
-    //     username: formValues.username,
-    //     password: formValues.password,
-    // }
-    // const headers = {
-    //     "Content-Type": "application/x-www-form-urlencoded",
-    //     Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`
-    // }
-    // const grant_type = `?grant_type=password&username=${formValues.username}&password=${formValues.password}`
-   
-    // request(`http://localhost:2019/login${grant_type}`,  {
-    //     method: "POST",
-    //     requestBody: JSON.stringify(body),
-    //     headers: headers
-    // }).then((res) => {
-    //     if (data) {
-    //         console.log("Success")
-    //         localStorage.setItem('token', `Bearer ${data.access_token}`)
-    //     }
-    // }).catch((error) =>
-    //     console.log(error)
-    // )
+    const body = {
+        username: formValues.username,
+        password: formValues.password,
+        primaryemail: formValues.primaryemail
+    }
+    console.log(JSON.stringify(body))
+    const headers = {
+        "Content-Type": "application/json",
+    }
+    request(`http://localhost:2019/createNewUser`,  {
+        method: "POST",
+        requestBody: JSON.stringify(body),
+        headers: headers
+    }).then((res) => {
+        if (data) {
+            console.log("Success")
+            localStorage.setItem('token', `Bearer ${data.access_token}`)
+        }
+    }).catch((error) =>
+        console.log(error)
+    )
 }
 
 
@@ -89,36 +85,32 @@ useEffect(() => {
     return (
         <div>
             <form onSubmit={onSubmit}>
-                <h2>Login</h2>
+                <h2>Register</h2>
+                <label>Username</label>
                 <input 
                     value={formValues.username}
                     onChange={onInputChange}
                     name="username"
                     type="text"
                 />
+                <label>Password</label>
                 <input 
                     value={formValues.password}
                     onChange={onInputChange}
                     name="password"
                     type="text"
                 />
-                  <input 
-                    value={formValues.passwordConfirm}
-                    onChange={onInputChange}
-                    name="passwordConfirm"
-                    type="text"
-                />
+                <label>Email</label>
                 <input 
-                    value={formValues.email}
+                    value={formValues.primaryemail}
                     onChange={onInputChange}
-                    name="email"
+                    name="primaryemail"
                     type="text"
                 />
                 <div>
                     <div>{formErrors.username}</div>
                     <div>{formErrors.password}</div>
-                    <div>{formErrors.passwordConfirm}</div>
-                    <div>{formErrors.email}</div>
+                    <div>{formErrors.primaryemail}</div>
                 </div>
                 <div>
                     <div>

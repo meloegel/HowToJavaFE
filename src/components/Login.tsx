@@ -2,6 +2,7 @@ import {useState, useEffect} from "react";
 import * as yup from "yup";
 import loginSchema from "../validation/loginSchema";
 import useFetch from "../hooks/useFetch";
+import { useHistory } from "react-router";
 
 
 const initialFormValues = {
@@ -17,6 +18,7 @@ const initialFormErrors = {
 const initalDisabled = true;
 
 export default function Login() {
+const history = useHistory();
 const [formValues, setFormValues] = useState(initialFormValues);
 const [formErrors, setFormErrors] = useState(initialFormErrors);
 const [disabled, setDisabled] = useState(initalDisabled);
@@ -103,13 +105,13 @@ useEffect(() => {
                 <div>
                     <div>
                         <h3>Register</h3>
-                        <button onClick={() => {}}>Register</button>
+                        <button onClick={() => {history.push('/register')}}>Register</button>
                     </div>
                     <div>
                         <h3>Login</h3>
                         <button
                         disabled={disabled} 
-                        onClick={() => {}}>Login</button>
+                        onClick={onSubmit}>Login</button>
                     </div>
                 </div>
             </form>
