@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import AuthenticatedRouter from './components/AuthenticatedRouter';
+import AuthenticatedRouter from './router/AuthenticatedRouter';
 
 
 

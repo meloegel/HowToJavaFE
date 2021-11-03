@@ -1,6 +1,6 @@
 import UserContextProvider from "../contexts/userContext";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Login from "./Login";
+import Login from "../components/Login";
 
 
 export default function AuthenticatedRouter() {
