@@ -19,7 +19,7 @@ const initialFormErrors = {
 
 const initalDisabled = true;
 
-export default function Login() {
+export default function Register() {
 const history = useHistory();    
 const [formValues, setFormValues] = useState(initialFormValues);
 const [formErrors, setFormErrors] = useState(initialFormErrors);
@@ -58,8 +58,10 @@ const onSubmit = (evt:any) => {
         primaryemail: formValues.primaryemail
     }
     console.log(JSON.stringify(body))
+    
     const headers = {
         "Content-Type": "application/json",
+        "Accept": "*/*"
     }
     request(`http://localhost:2019/createNewUser`,  {
         method: "POST",
