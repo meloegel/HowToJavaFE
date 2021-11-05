@@ -1,26 +1,24 @@
 import {useState, useEffect} from "react";
 import * as yup from "yup";
-import registrationSchema from "../validation/registrationSchema";
-import useFetch from "../hooks/useFetch";
+import loginSchema from "../../validation/loginSchema";
+import useFetch from "../../hooks/useFetch";
 import { useHistory } from "react-router";
 
 
 const initialFormValues = {
     username: "",
-    password: "",
-    primaryemail: ""
+    password: ""
 }
 
 const initialFormErrors = {
     username: "",
-    password: "",
-    primaryemail: ""
+    password: ""
 }
 
 const initalDisabled = true;
 
-export default function Register() {
-const history = useHistory();    
+export default function Login() {
+const history = useHistory();
 const [formValues, setFormValues] = useState(initialFormValues);
 const [formErrors, setFormErrors] = useState(initialFormErrors);
 const [disabled, setDisabled] = useState(initalDisabled);
@@ -30,7 +28,7 @@ const onInputChange = (evt: any) => {
     const name = evt.target.name;
     const value = evt.target.value;
 
-    yup.reach(registrationSchema, name)
+    yup.reach(loginSchema, name)
     .validate(value)
     .then((valid: any) => {
         setFormErrors({
@@ -53,21 +51,20 @@ const onInputChange = (evt: any) => {
 const onSubmit = (evt:any) => {
     evt.preventDefault();
     // const body = {
+    //     grant_type: "password",
     //     username: formValues.username,
     //     password: formValues.password,
-    //     primaryemail: formValues.primaryemail
     // }
-    // console.log(JSON.stringify(body))
-    const test = `?username=${formValues.username}&password=${formValues.password}&primaryemail=${formValues.primaryemail}`
     const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`,
-        "Accept": "*/*"
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`
     }
-    request(`http://localhost:2019/createNewUser${test}`,  {
+    const grant_type = `?grant_type=password&username=${formValues.username}&password=${formValues.password}`
+   
+    request(`http://localhost:2019/login${grant_type}`,  {
         method: "POST",
-        headers: headers,
-        // requestBody: JSON.stringify(body)
+        // requestBody: JSON.stringify(body),
+        headers: headers
     }).then((res) => {
         if (data) {
             console.log("Success")
@@ -80,7 +77,7 @@ const onSubmit = (evt:any) => {
 
 
 useEffect(() => {
-    registrationSchema.isValid(formValues).then((valid) => {
+    loginSchema.isValid(formValues).then((valid) => {
         setDisabled(!valid);
     });
 }, [formValues]);
@@ -88,44 +85,33 @@ useEffect(() => {
     return (
         <div>
             <form onSubmit={onSubmit}>
-                <h2>Register</h2>
-                <label>Username</label>
+                <h2>Login</h2>
                 <input 
                     value={formValues.username}
                     onChange={onInputChange}
                     name="username"
                     type="text"
                 />
-                <label>Password</label>
                 <input 
                     value={formValues.password}
                     onChange={onInputChange}
                     name="password"
                     type="text"
                 />
-                <label>Email</label>
-                <input 
-                    value={formValues.primaryemail}
-                    onChange={onInputChange}
-                    name="primaryemail"
-                    type="text"
-                />
                 <div>
                     <div>{formErrors.username}</div>
                     <div>{formErrors.password}</div>
-                    <div>{formErrors.primaryemail}</div>
                 </div>
                 <div>
                     <div>
                         <h3>Register</h3>
-                        <button 
-                        disabled={disabled} 
-                        onClick={() => {}}>Submit</button>
+                        <button onClick={() => {history.push('/register')}}>Register</button>
                     </div>
                     <div>
                         <h3>Login</h3>
                         <button
-                        onClick={() => {history.push("/")}}>Login</button>
+                        disabled={disabled} 
+                        onClick={onSubmit}>Login</button>
                     </div>
                 </div>
             </form>
