@@ -24,7 +24,7 @@ const history = useHistory();
 const [formValues, setFormValues] = useState(initialFormValues);
 const [formErrors, setFormErrors] = useState(initialFormErrors);
 const [disabled, setDisabled] = useState(initalDisabled);
-const [ , request, data] = useFetch<any>();
+const [request, data] = useFetch<any>();
 
 const onInputChange = (evt: any) => {
     const name = evt.target.name;
@@ -52,21 +52,22 @@ const onInputChange = (evt: any) => {
 
 const onSubmit = (evt:any) => {
     evt.preventDefault();
-    const body = {
-        username: formValues.username,
-        password: formValues.password,
-        primaryemail: formValues.primaryemail
-    }
-    console.log(JSON.stringify(body))
-    
+    // const body = {
+    //     username: formValues.username,
+    //     password: formValues.password,
+    //     primaryemail: formValues.primaryemail
+    // }
+    // console.log(JSON.stringify(body))
+    const test = `?username=${formValues.username}&password=${formValues.password}&primaryemail=${formValues.primaryemail}`
     const headers = {
         "Content-Type": "application/json",
+        Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`,
         "Accept": "*/*"
     }
-    request(`http://localhost:2019/createNewUser`,  {
+    request(`http://localhost:2019/createNewUser${test}`,  {
         method: "POST",
-        requestBody: JSON.stringify(body),
-        headers: headers
+        headers: headers,
+        // requestBody: JSON.stringify(body)
     }).then((res) => {
         if (data) {
             console.log("Success")
@@ -124,7 +125,7 @@ useEffect(() => {
                     <div>
                         <h3>Login</h3>
                         <button
-                        onClick={() => {history.push("/login")}}>Login</button>
+                        onClick={() => {history.push("/")}}>Login</button>
                     </div>
                 </div>
             </form>

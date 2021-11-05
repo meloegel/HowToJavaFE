@@ -22,7 +22,7 @@ const history = useHistory();
 const [formValues, setFormValues] = useState(initialFormValues);
 const [formErrors, setFormErrors] = useState(initialFormErrors);
 const [disabled, setDisabled] = useState(initalDisabled);
-const [ , request, data] = useFetch<any>();
+const [request, data] = useFetch<any>();
 
 const onInputChange = (evt: any) => {
     const name = evt.target.name;
@@ -50,11 +50,11 @@ const onInputChange = (evt: any) => {
 
 const onSubmit = (evt:any) => {
     evt.preventDefault();
-    const body = {
-        grant_type: "password",
-        username: formValues.username,
-        password: formValues.password,
-    }
+    // const body = {
+    //     grant_type: "password",
+    //     username: formValues.username,
+    //     password: formValues.password,
+    // }
     const headers = {
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`
@@ -63,7 +63,7 @@ const onSubmit = (evt:any) => {
    
     request(`http://localhost:2019/login${grant_type}`,  {
         method: "POST",
-        requestBody: JSON.stringify(body),
+        // requestBody: JSON.stringify(body),
         headers: headers
     }).then((res) => {
         if (data) {
