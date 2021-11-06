@@ -1,54 +1,55 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import * as yup from "yup";
 import loginSchema from "../../validation/loginSchema";
 import useFetch from "../../hooks/useFetch";
 import { useHistory } from "react-router";
-
+import Button from "../common/button";
 
 const initialFormValues = {
-    username: "",
-    password: ""
-}
+  username: "",
+  password: "",
+};
 
 const initialFormErrors = {
-    username: "",
-    password: ""
-}
+  username: "",
+  password: "",
+};
 
 const initalDisabled = true;
 
 export default function Login() {
-const history = useHistory();
-const [formValues, setFormValues] = useState(initialFormValues);
-const [formErrors, setFormErrors] = useState(initialFormErrors);
-const [disabled, setDisabled] = useState(initalDisabled);
-const [request, data] = useFetch<any>();
+  const history = useHistory();
+  const [formValues, setFormValues] = useState(initialFormValues);
+  const [formErrors, setFormErrors] = useState(initialFormErrors);
+  const [disabled, setDisabled] = useState(initalDisabled);
+  const [request, data] = useFetch<any>();
 
-const onInputChange = (evt: any) => {
+  const onInputChange = (evt: any) => {
     const name = evt.target.name;
     const value = evt.target.value;
 
-    yup.reach(loginSchema, name)
-    .validate(value)
-    .then((valid: any) => {
+    yup
+      .reach(loginSchema, name)
+      .validate(value)
+      .then((valid: any) => {
         setFormErrors({
-            ...formErrors,
-            [name]: "",
-        })
-    })
-    .catch((error: any) => {
+          ...formErrors,
+          [name]: "",
+        });
+      })
+      .catch((error: any) => {
         setFormErrors({
-            ...formErrors,
-            [name]: error.errors[0],
-        })
-    })
+          ...formErrors,
+          [name]: error.errors[0],
+        });
+      });
     setFormValues({
-        ...formValues,
-        [name]:value
+      ...formValues,
+      [name]: value,
     });
-};
+  };
 
-const onSubmit = (evt:any) => {
+  const onSubmit = (evt: any) => {
     evt.preventDefault();
     // const body = {
     //     grant_type: "password",
@@ -56,65 +57,69 @@ const onSubmit = (evt:any) => {
     //     password: formValues.password,
     // }
     const headers = {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`
-    }
-    const grant_type = `?grant_type=password&username=${formValues.username}&password=${formValues.password}`
-   
-    request(`http://localhost:2019/login${grant_type}`,  {
-        method: "POST",
-        // requestBody: JSON.stringify(body),
-        headers: headers
-    }).then((res) => {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`,
+    };
+    const grant_type = `?grant_type=password&username=${formValues.username}&password=${formValues.password}`;
+
+    request(`http://localhost:2019/login${grant_type}`, {
+      method: "POST",
+      // requestBody: JSON.stringify(body),
+      headers: headers,
+    })
+      .then((res) => {
         if (data) {
-            console.log("Success")
-            localStorage.setItem('token', `Bearer ${data.access_token}`)
+          console.log("Success");
+          localStorage.setItem("token", `Bearer ${data.access_token}`);
         }
-    }).catch((error) =>
-        console.log(error)
-    )
-}
+      })
+      .catch((error) => console.log(error));
+  };
 
-
-useEffect(() => {
+  useEffect(() => {
     loginSchema.isValid(formValues).then((valid) => {
-        setDisabled(!valid);
+      setDisabled(!valid);
     });
-}, [formValues]);
+  }, [formValues]);
 
-    return (
+  return (
+    <div>
+      <form onSubmit={onSubmit}>
+        <h2>Login</h2>
+        <input
+          className="bg-gray-400 border-2 border-black m-2"
+          value={formValues.username}
+          onChange={onInputChange}
+          name="username"
+          type="text"
+        />
+        <input
+          className="bg-gray-400 border-2 border-black m-2"
+          value={formValues.password}
+          onChange={onInputChange}
+          name="password"
+          type="text"
+        />
         <div>
-            <form onSubmit={onSubmit}>
-                <h2>Login</h2>
-                <input 
-                    value={formValues.username}
-                    onChange={onInputChange}
-                    name="username"
-                    type="text"
-                />
-                <input 
-                    value={formValues.password}
-                    onChange={onInputChange}
-                    name="password"
-                    type="text"
-                />
-                <div>
-                    <div>{formErrors.username}</div>
-                    <div>{formErrors.password}</div>
-                </div>
-                <div>
-                    <div>
-                        <h3>Register</h3>
-                        <button onClick={() => {history.push('/register')}}>Register</button>
-                    </div>
-                    <div>
-                        <h3>Login</h3>
-                        <button
-                        disabled={disabled} 
-                        onClick={onSubmit}>Login</button>
-                    </div>
-                </div>
-            </form>
+          <div>{formErrors.username}</div>
+          <div>{formErrors.password}</div>
         </div>
-    )
+        <div>
+          <Button
+            text="Register"
+            onClick={() => {
+              history.push("/register");
+            }}
+            className=" bg-gray-500 text-white "
+          />
+          <Button
+            text="Login"
+            onClick={() => onSubmit}
+            disabled={disabled}
+            className=" bg-gray-500 text-white "
+          />
+        </div>
+      </form>
+    </div>
+  );
 }
