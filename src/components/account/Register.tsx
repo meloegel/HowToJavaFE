@@ -28,6 +28,7 @@ export default function Register() {
   const [request, data] = useFetch<any>();
 
   const onInputChange = (evt: any) => {
+    evt.preventDefault();
     const name = evt.target.name;
     const value = evt.target.value;
 

@@ -1,3 +1,4 @@
+import { ChangeEventHandler } from "react";
 
 
 export type InputType = {
@@ -8,7 +9,7 @@ export type InputType = {
     titlePos?: "left" | "top";
     disabled?: boolean;
     className?: string;
-    onChange: typeof onInputChange;
+    onChange: ChangeEventHandler;
 }
 
 
@@ -41,7 +42,6 @@ export default function Input(props: InputType): JSX.Element {
                 onChange={onChange}
                 disabled={disabled}
                 className={` bg-gray-400 border-2 border-white ${className}`}
-                
                 />
             </div>
         )
@@ -70,11 +70,5 @@ export default function Input(props: InputType): JSX.Element {
             />
         </div>
         )
-    }
-
-    
-    
-}
-const onInputChange = (evt:any) => {
-    evt.preventDefault();
+    } 
 }
