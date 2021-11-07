@@ -3,7 +3,7 @@ import * as yup from "yup";
 import loginSchema from "../../validation/loginSchema";
 import useFetch from "../../hooks/useFetch";
 import { useHistory } from "react-router";
-import Button from "../common/button";
+import Button from "../common/button/button";
 
 const initialFormValues = {
   username: "",

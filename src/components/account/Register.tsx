@@ -3,8 +3,8 @@ import * as yup from "yup";
 import registrationSchema from "../../validation/registrationSchema";
 import useFetch from "../../hooks/useFetch";
 import { useHistory } from "react-router";
-import Button from "../common/button";
-import Input from "../common/input";
+import Button from "../common/button/button";
+
 
 const initialFormValues = {
   username: "",
@@ -91,22 +91,11 @@ export default function Register() {
     <div>
       <form onSubmit={onSubmit}>
         <h2>Register</h2>
-        <Input 
-        title="Username"
-        titlePos="left"
-        value={formValues.username}
-        onChange={onInputChange}
-        name="username"
-        type="text"
-        />
         <label>Username</label>
-        <input
-         className="bg-gray-400 border-2 border-black m-2"
-          
-        />
+        <input className="bg-gray-400 border-2 border-black m-2" />
         <label>Password</label>
         <input
-         className="bg-gray-400 border-2 border-black m-2"
+          className="bg-gray-400 border-2 border-black m-2"
           value={formValues.password}
           onChange={onInputChange}
           name="password"
@@ -114,7 +103,7 @@ export default function Register() {
         />
         <label>Email</label>
         <input
-         className="bg-gray-400 border-2 border-black m-2"
+          className="bg-gray-400 border-2 border-black m-2"
           value={formValues.primaryemail}
           onChange={onInputChange}
           name="primaryemail"
@@ -126,20 +115,20 @@ export default function Register() {
           <div>{formErrors.primaryemail}</div>
         </div>
 
-     <div>
-        <Button
-          text="Submit"
-          disabled={disabled}
-          onClick={() => {}}
-          className=" bg-gray-500 text-white "
-        />
-        <Button
-          text="Login"
-          onClick={() => {
-            history.push("/");
-          }}
-          className=" bg-gray-500 text-white "
-        />
+        <div>
+          <Button
+            text="Submit"
+            disabled={disabled}
+            onClick={() => {}}
+            className=" bg-gray-500 text-white "
+          />
+          <Button
+            text="Login"
+            onClick={() => {
+              history.push("/");
+            }}
+            className=" bg-gray-500 text-white "
+          />
         </div>
       </form>
     </div>
