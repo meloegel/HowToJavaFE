@@ -12,7 +12,7 @@ export default function Logout() {
 
   return (
     <div className="w-full">
-      <Header />
+      <Header showUser={true}/>
       <div className=" grid grid-cols-4 gap-6 p-4">
         <NavBar active={"logout"} />
         <div className="bg-yellow-200 text-center col-span-3">

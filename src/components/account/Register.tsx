@@ -89,7 +89,7 @@ export default function Register() {
 
   return (
     <div>
-      <Header />
+      <Header showUser={false}/>
       <form onSubmit={onSubmit} className="bg-green-300 w-1/2 m-auto p-4">
         <h2 className="text-center text-4xl p-4 mb-2">Register</h2>
         <div className="flex justify-center p-4">

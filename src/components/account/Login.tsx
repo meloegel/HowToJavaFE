@@ -86,14 +86,14 @@ export default function Login() {
 
   return (
     <div>
-      <Header />
+      <Header showUser={false} />
       <form onSubmit={onSubmit} className="bg-blue-300 w-1/2 m-auto p-4">
         <h2 className="text-center text-4xl p-4 mb-2">Login</h2>
         <div className="text-center p-4">
           <div className="p-2">
             <label>Username</label>
             <input
-              className="bg-gray-400 border-2 border-black m-2"
+              className="bg-indigo-300 border-2 border-white m-2 p-1 "
               value={formValues.username}
               onChange={onInputChange}
               name="username"
@@ -103,7 +103,7 @@ export default function Login() {
           <div className="p-2">
             <label>Password</label>
             <input
-              className="bg-gray-400 border-2 border-black m-2"
+              className="bg-indigo-300 border-2 border-white m-2 p-1 "
               value={formValues.password}
               onChange={onInputChange}
               name="password"
@@ -121,13 +121,13 @@ export default function Login() {
             onClick={() => {
               history.push("/register");
             }}
-            className=" bg-gray-500 text-white "
+            className=" bg-purple-400 text-white "
           />
           <Button
             text="Login"
             onClick={() => onSubmit}
             disabled={disabled}
-            className=" bg-gray-500 text-white "
+            className=" bg-purple-400 text-white "
           />
         </div>
       </form>
