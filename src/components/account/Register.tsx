@@ -4,7 +4,7 @@ import registrationSchema from "../../validation/registrationSchema";
 import useFetch from "../../hooks/useFetch";
 import { useHistory } from "react-router";
 import Button from "../common/button/button";
-
+import Header from "../common/header";
 
 const initialFormValues = {
   username: "",
@@ -89,44 +89,60 @@ export default function Register() {
 
   return (
     <div>
-      <form onSubmit={onSubmit}>
-        <h2>Register</h2>
-        <label>Username</label>
-        <input className="bg-gray-400 border-2 border-black m-2" />
-        <label>Password</label>
-        <input
-          className="bg-gray-400 border-2 border-black m-2"
-          value={formValues.password}
-          onChange={onInputChange}
-          name="password"
-          type="text"
-        />
-        <label>Email</label>
-        <input
-          className="bg-gray-400 border-2 border-black m-2"
-          value={formValues.primaryemail}
-          onChange={onInputChange}
-          name="primaryemail"
-          type="text"
-        />
-        <div>
-          <div>{formErrors.username}</div>
-          <div>{formErrors.password}</div>
-          <div>{formErrors.primaryemail}</div>
+      <Header />
+      <form onSubmit={onSubmit} className="bg-green-300 w-1/2 m-auto p-4">
+        <h2 className="text-center text-4xl p-4 mb-2">Register</h2>
+        <div className="flex justify-center p-4">
+          <div className="text-right p-4">
+            <div className="p-2 ">
+              <label>Username</label>
+              <input
+                className="bg-gray-400 border-2 border-black m-2 "
+                value={formValues.username}
+                onChange={onInputChange}
+                name="username"
+                type="text"
+              />
+            </div>
+            <div className="p-2 ">
+              <label>Password</label>
+              <input
+                className="bg-gray-400 border-2 border-black m-2 "
+                value={formValues.password}
+                onChange={onInputChange}
+                name="password"
+                type="text"
+              />
+            </div>
+            <div className="p-2 ">
+              <label>Email</label>
+              <input
+                className="bg-gray-400 border-2 border-black m-2 "
+                value={formValues.primaryemail}
+                onChange={onInputChange}
+                name="primaryemail"
+                type="text"
+              />
+            </div>
+          </div>
+          <div>
+            <div>{formErrors.username}</div>
+            <div>{formErrors.password}</div>
+            <div>{formErrors.primaryemail}</div>
+          </div>
         </div>
-
-        <div>
-          <Button
-            text="Submit"
-            disabled={disabled}
-            onClick={() => {}}
-            className=" bg-gray-500 text-white "
-          />
+        <div className="flex justify-evenly p-6">
           <Button
             text="Login"
             onClick={() => {
               history.push("/");
             }}
+            className=" bg-gray-500 text-white "
+          />
+          <Button
+            text="Submit"
+            disabled={disabled}
+            onClick={() => {}}
             className=" bg-gray-500 text-white "
           />
         </div>
