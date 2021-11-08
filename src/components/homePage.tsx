@@ -6,7 +6,9 @@ export default function HomePage() {
     <div className="">
       <Header />
       <div className="mt-8">
+          <div className="w-1/3">
         <NavBar active={"home"} />
+        </div>
       </div>
     </div>
   );

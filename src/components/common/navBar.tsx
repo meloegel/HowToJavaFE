@@ -3,7 +3,7 @@ import NavButton from "./button/navButton"
 
 
 export type NavBarType = {
-    active: "home" | "account" | "myhowto" | "howtos"
+    active: "home" | "account" | "myhowto" | "howtos" | "logout"
 }
 
 
@@ -11,7 +11,7 @@ export default function NavBar(props: NavBarType): JSX.Element {
     const history = useHistory();
     return (
         <div>
-            <div className="flex flex-col w-1/5 p-4 bg-gray-200">
+            <div className="flex flex-col  p-4 bg-gray-200">
                 <h4 className="text-xl font-bold text-center">Nav</h4>
                 <NavButton 
                 text="Home"
@@ -35,6 +35,12 @@ export default function NavBar(props: NavBarType): JSX.Element {
                 text="Account"
                 onClick={() => history.push("")}
                 active={props.active === "account"}
+                className="m-2"
+                />
+                <NavButton 
+                text="Logout"
+                onClick={() => history.push("/logout")}
+                active={props.active === "logout"}
                 className="m-2"
                 />
             </div>

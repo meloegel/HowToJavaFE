@@ -3,6 +3,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Login from "../components/account/Login";
 import Register from '../components/account/Register';
 import Home from '../components/homePage';
+import Logout from "../components/common/logout";
+import PrivateRoute from "./PrivateRoute";
 
 
 export default function AuthenticatedRouter() {
@@ -12,7 +14,8 @@ export default function AuthenticatedRouter() {
                 <Switch>
                     <Route exact path="/" component={Login}/>
                     <Route path="/register" component={Register}/>
-                    <Route path='/home' component={Home}/>
+                    <Route path='/logout' component={Logout}/>
+                    <PrivateRoute path={'/home'} component={Home} />
                 </Switch>
             </UserContextProvider>
         </BrowserRouter>
