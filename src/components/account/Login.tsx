@@ -72,6 +72,7 @@ export default function Login() {
         if (data) {
           console.log("Success");
           localStorage.setItem("token", `Bearer ${data.access_token}`);
+          history.push("/home");
         }
       })
       .catch((error) => console.log(error));
