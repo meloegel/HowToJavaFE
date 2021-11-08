@@ -4,6 +4,7 @@ import loginSchema from "../../validation/loginSchema";
 import useFetch from "../../hooks/useFetch";
 import { useHistory } from "react-router";
 import Button from "../common/button/button";
+import Header from "../common/header";
 
 const initialFormValues = {
   username: "",
@@ -84,27 +85,36 @@ export default function Login() {
 
   return (
     <div>
-      <form onSubmit={onSubmit}>
-        <h2>Login</h2>
-        <input
-          className="bg-gray-400 border-2 border-black m-2"
-          value={formValues.username}
-          onChange={onInputChange}
-          name="username"
-          type="text"
-        />
-        <input
-          className="bg-gray-400 border-2 border-black m-2"
-          value={formValues.password}
-          onChange={onInputChange}
-          name="password"
-          type="text"
-        />
+      <Header />
+      <form onSubmit={onSubmit} className="bg-blue-300 w-1/2 m-auto p-4">
+        <h2 className="text-center text-4xl p-4 mb-2">Login</h2>
+        <div className="text-center p-4">
+          <div className="p-2">
+            <label>Username</label>
+            <input
+              className="bg-gray-400 border-2 border-black m-2"
+              value={formValues.username}
+              onChange={onInputChange}
+              name="username"
+              type="text"
+            />
+          </div>
+          <div className="p-2">
+            <label>Password</label>
+            <input
+              className="bg-gray-400 border-2 border-black m-2"
+              value={formValues.password}
+              onChange={onInputChange}
+              name="password"
+              type="text"
+            />
+          </div>
+        </div>
         <div>
           <div>{formErrors.username}</div>
           <div>{formErrors.password}</div>
         </div>
-        <div>
+        <div className="flex justify-evenly p-6">
           <Button
             text="Register"
             onClick={() => {

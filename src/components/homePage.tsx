@@ -7,8 +7,8 @@ export default function HomePage() {
     return (
         <div>
             <Header />
-            <div>
-                <NavBar active={"home"}/>
+            <div className="mt-8">
+               <NavBar active={"home"}/>
             </div>
         </div>
     )
