@@ -4,6 +4,7 @@ export type HeaderType = {
 
 export default function Header(props: HeaderType): JSX.Element {
   const { showUser: type = false } = props;
+  const username = window.localStorage.getItem("username");
 
   switch (type) {
     case true:
@@ -19,7 +20,7 @@ export default function Header(props: HeaderType): JSX.Element {
         <h1 className="text-4xl">HowToJava</h1>
         <div className=" text-center px-2">
           <h4>Logged in user:</h4>
-          <h3>Placeholder</h3>
+          <h3>{username}</h3>
         </div>
       </div>
     );
