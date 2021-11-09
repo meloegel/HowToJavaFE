@@ -72,7 +72,7 @@ export default function Login() {
         if (data) {
           console.log("Success");
           localStorage.setItem("token", `Bearer ${data.access_token}`);
-          localStorage.setItem("username", `${formValues.username}`)
+          localStorage.setItem("username", `${formValues.username}`);
           history.push("/home");
         }
       })
@@ -118,16 +118,16 @@ export default function Login() {
         </div>
         <div className="flex justify-evenly p-6">
           <Button
+            text="Login"
+            onClick={() => onSubmit}
+            disabled={disabled}
+            className=" bg-purple-400 text-white "
+          />
+          <Button
             text="Register"
             onClick={() => {
               history.push("/register");
             }}
-            className=" bg-purple-400 text-white "
-          />
-          <Button
-            text="Login"
-            onClick={() => onSubmit}
-            disabled={disabled}
             className=" bg-purple-400 text-white "
           />
         </div>
