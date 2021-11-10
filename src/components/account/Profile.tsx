@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import Button from "../common/button/button";
 import Header from "../common/header";
@@ -13,6 +13,24 @@ const initialFormValues = {
 export default function Profile(): JSX.Element {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [request, data] = useFetch<any>();
+  const [userId, setUserId] = useState();
+
+  useEffect(() => {
+    const token = window.localStorage.getItem("token");
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: token || "",
+    };
+    request(`http://localhost:2019/users/getuserinfo`, {
+      method: "GET",
+      headers: headers,
+    })
+    console.log(data)
+  }, []);
+
+
+
+
 
   const onInputChange = (evt: any) => {
     evt.preventDefault();
