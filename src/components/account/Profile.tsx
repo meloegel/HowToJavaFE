@@ -6,14 +6,15 @@ import NavBar from "../common/navBar";
 
 const initialFormValues = {
   username: "",
-  password: "",
   primaryemail: "",
+  roles: []
 };
 
 export default function Profile(): JSX.Element {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [request, data] = useFetch<any>();
   const [userId, setUserId] = useState();
+  
 
   useEffect(() => {
     const token = window.localStorage.getItem("token");
@@ -26,6 +27,13 @@ export default function Profile(): JSX.Element {
       headers: headers,
     })
     console.log(data)
+    // var test = {username: "", primaryemail: "", roles: []};
+    // test.username = data.username
+    // test.primaryemail = data.primaryemail
+    // test.roles = data.roles
+    // console.log(test)
+    // setFormValues(test)
+   
   }, []);
 
 
@@ -58,16 +66,6 @@ export default function Profile(): JSX.Element {
                     value={formValues.username}
                     onChange={onInputChange}
                     name="username"
-                    type="text"
-                  />
-                </div>
-                <div className="p-2 ">
-                  <label>Password</label>
-                  <input
-                    className="bg-gray-400 border-2 border-black m-2 "
-                    value={formValues.password}
-                    onChange={onInputChange}
-                    name="password"
                     type="text"
                   />
                 </div>
