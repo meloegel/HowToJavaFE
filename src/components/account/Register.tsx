@@ -60,8 +60,6 @@ export default function Register() {
       password: formValues.password,
       primaryemail: formValues.primaryemail,
     };
-    console.log(JSON.stringify(body));
-    // const test = `?username=${formValues.username}&password=${formValues.password}&primaryemail=${formValues.primaryemail}`;
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`,
