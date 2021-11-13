@@ -65,7 +65,7 @@ export default function Login() {
 
     request(`http://localhost:2019/login${grant_type}`, {
       method: "POST",
-      // requestBody: JSON.stringify(body),
+      // body: JSON.stringify(body),
       headers: headers,
     })
       .then((res) => {

@@ -7,38 +7,32 @@ import NavBar from "../common/navBar";
 const initialFormValues = {
   username: "",
   primaryemail: "",
-  roles: []
+  roles: [],
 };
 
 export default function Profile(): JSX.Element {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [request, data] = useFetch<any>();
   const [userId, setUserId] = useState();
-  
 
   useEffect(() => {
     const token = window.localStorage.getItem("token");
     const headers = {
       "Content-Type": "application/json",
-      Authorization: token || "",
+      Authorization: token || ""
     };
     request(`http://localhost:2019/users/getuserinfo`, {
       method: "GET",
       headers: headers,
-    })
-    console.log(data)
+    });
+    console.log(data);
     // var test = {username: "", primaryemail: "", roles: []};
     // test.username = data.username
     // test.primaryemail = data.primaryemail
     // test.roles = data.roles
     // console.log(test)
     // setFormValues(test)
-   
   }, []);
-
-
-
-
 
   const onInputChange = (evt: any) => {
     evt.preventDefault();

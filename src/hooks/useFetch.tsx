@@ -4,7 +4,7 @@ import useMountedState from "./useMountedState";
 
 type Options = {
   method: "GET" | "POST" | "PUT" | "DELETE";
-  requestBody?: BodyInit;
+  body?: BodyInit;
   headers?: Headers;
 };
 

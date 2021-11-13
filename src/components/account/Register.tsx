@@ -18,13 +18,13 @@ const initialFormErrors = {
   primaryemail: "",
 };
 
-const initalDisabled = true;
+const initialDisabled = true;
 
 export default function Register() {
   const history = useHistory();
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
-  const [disabled, setDisabled] = useState(initalDisabled);
+  const [disabled, setDisabled] = useState(initialDisabled);
   const [request, data] = useFetch<any>();
 
   const onInputChange = (evt: any) => {
@@ -55,28 +55,40 @@ export default function Register() {
 
   const onSubmit = (evt: any) => {
     evt.preventDefault();
-    // const body = {
-    //     username: formValues.username,
-    //     password: formValues.password,
-    //     primaryemail: formValues.primaryemail
-    // }
-    // console.log(JSON.stringify(body))
-    const test = `?username=${formValues.username}&password=${formValues.password}&primaryemail=${formValues.primaryemail}`;
+    const body = {
+      username: formValues.username,
+      password: formValues.password,
+      primaryemail: formValues.primaryemail,
+    };
+    console.log(JSON.stringify(body));
+    // const test = `?username=${formValues.username}&password=${formValues.password}&primaryemail=${formValues.primaryemail}`;
     const headers = {
       "Content-Type": "application/json",
       Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`,
       Accept: "*/*",
+      "Content-Length": "100",
+      Connection: "keep-alive",
+      "Accept-Encoding": "gzip, deflate, br",
     };
-    request(`http://localhost:2019/createNewUser${test}`, {
+    request(`http://localhost:2019/createNewUser`, {
       method: "POST",
+      body: JSON.stringify(body),
       headers: headers,
-      // requestBody: JSON.stringify(body)
     })
       .then((res) => {
         if (data) {
           console.log("Success");
           localStorage.setItem("token", `Bearer ${data.access_token}`);
+          history.push("/home");
         }
+        alert(`
+        Success! 
+        Please log in on the next page.
+        Please remember your credentials:
+        Username: ${formValues.username}
+        Password: ${formValues.password}
+        `);
+        history.push("/");
       })
       .catch((error) => console.log(error));
   };
@@ -89,7 +101,7 @@ export default function Register() {
 
   return (
     <div>
-      <Header showUser={false}/>
+      <Header showUser={false} />
       <form onSubmit={onSubmit} className="bg-green-300 w-1/2 m-auto p-4">
         <h2 className="text-center text-4xl p-4 mb-2">Register</h2>
         <div className="flex justify-center p-4">
