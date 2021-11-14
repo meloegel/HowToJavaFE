@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import useFetch from "../../hooks/useFetch";
 import Button from "../common/button/button";
 import Header from "../common/header";
@@ -11,6 +12,7 @@ const initialFormValues = {
 };
 
 export default function Profile(): JSX.Element {
+  const history = useHistory();
   const [formValues, setFormValues] = useState(initialFormValues);
   const [request, data] = useFetch<any>();
   const [userId, setUserId] = useState();
@@ -50,17 +52,16 @@ export default function Profile(): JSX.Element {
   const onSubmit = (evt: any) => {
     evt.preventDefault();
     const body = {
+      userid: userId,
       username: formValues.username,
       primaryemail: formValues.primaryemail,
     };
+    console.log(JSON.stringify(body))
     const headers = {
       "Content-Type": "application/json",
       Authorization: token!,
-      Accept: "*/*",
-      "Content-Length": "100",
-      Connection: "keep-alive",
-      "Accept-Encoding": "gzip, deflate, br",
     };
+    console.log(userId)
     request(`http://localhost:2019/users/user/${userId}`, {
       method: "PATCH",
       body: JSON.stringify(body),
@@ -69,8 +70,13 @@ export default function Profile(): JSX.Element {
       .then((res) => {
         if (data) {
           console.log("Success");
+           alert(`
+           Success!
+           Please log back in with your new username
+           `);
+           window.localStorage.clear()
+           history.push("/")
         }
-        alert(`Success!`);
       })
       .catch((error) => console.log(error));
   };
@@ -89,24 +95,24 @@ export default function Profile(): JSX.Element {
       <div>
         <div className="grid grid-cols-4">
           <NavBar active={"profile"} className=""/>
-          <form onSubmit={onSubmit} className="col-start-3 m-auto">
+          <form onSubmit={onSubmit} className="col-start-2 col-span-2 m-auto">
             <h2 className="text-center text-4xl p-4 mb-2">Profile</h2>
             <div className="flex justify-center p-4">
               <div className="text-right p-4">
                 <div className="p-2 ">
                   <label>Username</label>
                   <input
-                    className="bg-gray-400 border-2 border-black m-2 "
+                    className="bg-gray-400 border-2 border-black m-2"
                     value={formValues.username}
                     onChange={onInputChange}
                     name="username"
                     type="text"
                   />
                 </div>
-                <div className="p-2 ">
-                  <label>Email</label>
+                <div className="p-2">
+                  <label >Email</label>
                   <input
-                    className="bg-gray-400 border-2 border-black m-2 "
+                    className="bg-gray-400 border-2 border-black m-2"
                     value={formValues.primaryemail}
                     onChange={onInputChange}
                     name="primaryemail"
@@ -119,7 +125,7 @@ export default function Profile(): JSX.Element {
               <Button
                 text="Update Profile"
                 onClick={() => {}}
-                className=" bg-gray-500 text-white "
+                className=" bg-gray-500 text-white"
               />
             </div>
           </form>
