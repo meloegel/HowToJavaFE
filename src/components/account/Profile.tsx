@@ -17,32 +17,64 @@ export default function Profile(): JSX.Element {
   const token = window.localStorage.getItem("token");
 
   useEffect(() => {
-   getInitialData()
+    getInitialData();
   }, []);
 
-const getInitialData = () => {
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: token!,
-  };
+  const getInitialData = () => {
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: token!,
+    };
     request(`http://localhost:2019/users/getuserinfo`, {
-    method: "GET",
-    headers: headers,
-  }).then((res) => {
-    console.log(data);
-    if (data) {
-      var test = { username: "", primaryemail: "", roles: [] };
-      test.username = data.username;
-      test.primaryemail = data.primaryemail;
-      test.roles = data.roles;
-      // console.log(test);
-      setFormValues(test);
-    }
-  })
-  .catch((error) => console.log(error));
-}
+      method: "GET",
+      headers: headers,
+    })
+      .then((res) => {
+        console.log(data);
+        if (data) {
+          var test = { username: "", primaryemail: "", roles: [], userid: "" };
+          test.username = data.username;
+          test.primaryemail = data.primaryemail;
+          test.roles = data.roles;
+          test.userid  = data.userid;
+          console.log(test);
+          setFormValues(test);
+          setUserId(data.userid);
+        }
+      })
+      .catch((error) => console.log(error));
+  };
 
   console.log(data);
+
+  const onSubmit = (evt: any) => {
+    evt.preventDefault();
+    const body = {
+      username: formValues.username,
+      primaryemail: formValues.primaryemail,
+    };
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: token!,
+      Accept: "*/*",
+      "Content-Length": "100",
+      Connection: "keep-alive",
+      "Accept-Encoding": "gzip, deflate, br",
+    };
+    request(`http://localhost:2019/users/user/${userId}`, {
+      method: "PATCH",
+      body: JSON.stringify(body),
+      headers: headers,
+    })
+      .then((res) => {
+        if (data) {
+          console.log("Success");
+        }
+        alert(`Success!`);
+      })
+      .catch((error) => console.log(error));
+  };
+
   const onInputChange = (evt: any) => {
     evt.preventDefault();
     setFormValues({
@@ -55,11 +87,10 @@ const getInitialData = () => {
     <div>
       <Header showUser={true} />
       <div>
-        <h2>Profile</h2>
-        <div className="">
-          <NavBar active={"profile"} />
-          <form>
-            <h2 className="text-center text-4xl p-4 mb-2">Register</h2>
+        <div className="grid grid-cols-4">
+          <NavBar active={"profile"} className=""/>
+          <form onSubmit={onSubmit} className="col-start-3 m-auto">
+            <h2 className="text-center text-4xl p-4 mb-2">Profile</h2>
             <div className="flex justify-center p-4">
               <div className="text-right p-4">
                 <div className="p-2 ">
@@ -86,7 +117,7 @@ const getInitialData = () => {
             </div>
             <div className="flex justify-evenly p-6">
               <Button
-                text="Login"
+                text="Update Profile"
                 onClick={() => {}}
                 className=" bg-gray-500 text-white "
               />

@@ -1,9 +1,8 @@
 import { useCallback } from "react";
 import useMountedState from "./useMountedState";
 
-
 type Options = {
-  method: "GET" | "POST" | "PUT" | "DELETE";
+  method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
   body?: BodyInit;
   headers?: Headers;
 };
@@ -12,7 +11,7 @@ type Headers = {
   [key: string]: string;
 };
 
-type Result<T> = [ (url: string, options: Options) => Promise<void>, T | null];
+type Result<T> = [(url: string, options: Options) => Promise<void>, T | null];
 
 export default function useFetch<T>(): Result<T> {
   const [result, setResult] = useMountedState<T | null>(null);
@@ -24,5 +23,5 @@ export default function useFetch<T>(): Result<T> {
     },
     [setResult]
   );
-  return [ request, result];
+  return [request, result];
 }

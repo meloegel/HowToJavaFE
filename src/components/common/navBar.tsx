@@ -3,13 +3,14 @@ import NavButton from "./button/navButton";
 
 export type NavBarType = {
   active: "home" | "profile" | "myhowto" | "howtos" | "logout";
+  className?: string;
 };
 
 export default function NavBar(props: NavBarType): JSX.Element {
   const history = useHistory();
   return (
     <div>
-      <div className="flex flex-col  p-4 bg-gray-200">
+      <div className={`flex flex-col  p-4 bg-gray-200 ${props.className}`}>
         <h4 className="text-xl font-bold text-center">Nav</h4>
         <NavButton
           text="Home"
