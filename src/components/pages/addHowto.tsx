@@ -1,7 +1,7 @@
 import Header from "../common/header";
 import NavBar from "../common/navBar";
 
-export default function AddHowTo(): JSX.Element {
+export default function AddHowto(): JSX.Element {
   return (
     <div>
       <Header showUser={true} />

@@ -28,7 +28,7 @@ export default function NavBar(props: NavBarType): JSX.Element {
         />
         <NavButton
           text="My Howtos"
-          onClick={() => history.push("")}
+          onClick={() => history.push("/my-howtos")}
           active={props.active === "myhowto"}
           className="m-2"
         />
