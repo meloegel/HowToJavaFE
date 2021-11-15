@@ -22,6 +22,18 @@ export default function Profile(): JSX.Element {
     getInitialData();
   }, []);
 
+  useEffect(() => {
+    if (data) {
+      var test = { username: "", primaryemail: "", roles: [], userid: "" };
+      test.username = data.username;
+      test.primaryemail = data.primaryemail;
+      test.roles = data.roles;
+      test.userid = data.userid;
+      setFormValues(test);
+      setUserId(data.userid);
+    }
+  }, [data]);
+
   const getInitialData = () => {
     const headers = {
       "Content-Type": "application/json",
@@ -30,24 +42,8 @@ export default function Profile(): JSX.Element {
     request(`http://localhost:2019/users/getuserinfo`, {
       method: "GET",
       headers: headers,
-    })
-      .then((res) => {
-        console.log(data);
-        if (data) {
-          var test = { username: "", primaryemail: "", roles: [], userid: "" };
-          test.username = data.username;
-          test.primaryemail = data.primaryemail;
-          test.roles = data.roles;
-          test.userid  = data.userid;
-          console.log(test);
-          setFormValues(test);
-          setUserId(data.userid);
-        }
-      })
-      .catch((error) => console.log(error));
+    });
   };
-
-  console.log(data);
 
   const onSubmit = (evt: any) => {
     evt.preventDefault();
@@ -56,12 +52,12 @@ export default function Profile(): JSX.Element {
       username: formValues.username,
       primaryemail: formValues.primaryemail,
     };
-    console.log(JSON.stringify(body))
+    console.log(JSON.stringify(body));
     const headers = {
       "Content-Type": "application/json",
       Authorization: token!,
     };
-    console.log(userId)
+    console.log(userId);
     request(`http://localhost:2019/users/user/${userId}`, {
       method: "PATCH",
       body: JSON.stringify(body),
@@ -70,12 +66,12 @@ export default function Profile(): JSX.Element {
       .then((res) => {
         if (data) {
           console.log("Success");
-           alert(`
+          alert(`
            Success!
            Please log back in with your new username
            `);
-           window.localStorage.clear()
-           history.push("/")
+          window.localStorage.clear();
+          history.push("/");
         }
       })
       .catch((error) => console.log(error));
@@ -94,7 +90,7 @@ export default function Profile(): JSX.Element {
       <Header showUser={true} />
       <div>
         <div className="grid grid-cols-4">
-          <NavBar active={"profile"} className=""/>
+          <NavBar active={"profile"} className="" />
           <form onSubmit={onSubmit} className="col-start-2 col-span-2 m-auto">
             <h2 className="text-center text-4xl p-4 mb-2">Profile</h2>
             <div className="flex justify-center p-4">
@@ -110,7 +106,7 @@ export default function Profile(): JSX.Element {
                   />
                 </div>
                 <div className="p-2">
-                  <label >Email</label>
+                  <label>Email</label>
                   <input
                     className="bg-gray-400 border-2 border-black m-2"
                     value={formValues.primaryemail}
