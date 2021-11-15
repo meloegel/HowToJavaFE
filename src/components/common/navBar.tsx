@@ -2,7 +2,7 @@ import { useHistory } from "react-router";
 import NavButton from "./button/navButton";
 
 export type NavBarType = {
-  active: "home" | "profile" | "myhowto" | "howtos" | "logout" | "about";
+  active: "howtos" | "addhowto" | "myhowto" | "profile" | "logout" | "about";
   className?: string;
 };
 
@@ -17,13 +17,13 @@ export default function NavBar(props: NavBarType): JSX.Element {
         <NavButton
           text="Howtos"
           onClick={() => history.push("/home")}
-          active={props.active === "home"}
+          active={props.active === "howtos"}
           className="m-2"
         />
         <NavButton
           text="Add Howto"
-          onClick={() => history.push("")}
-          active={props.active === "howtos"}
+          onClick={() => history.push("/add-howto")}
+          active={props.active === "addhowto"}
           className="m-2"
         />
         <NavButton

@@ -52,11 +52,11 @@ export default function Login() {
 
   const onSubmit = (evt: any) => {
     evt.preventDefault();
-    // const body = {
-    //     grant_type: "password",
-    //     username: formValues.username,
-    //     password: formValues.password,
-    // }
+    const body = {
+      grant_type: "password",
+      username: formValues.username,
+      password: formValues.password,
+    };
     const headers = {
       "Content-Type": "application/x-www-form-urlencoded",
       Authorization: `Basic ${btoa("lambda-client:lambda-secret")}`,
@@ -65,18 +65,15 @@ export default function Login() {
 
     request(`http://localhost:2019/login${grant_type}`, {
       method: "POST",
-      // body: JSON.stringify(body),
+      body: JSON.stringify(body),
       headers: headers,
-    })
-      .then((res) => {
-        if (data) {
-          console.log("Success");
-          localStorage.setItem("token", `Bearer ${data.access_token}`);
-          localStorage.setItem("username", `${formValues.username}`);
-          history.push("/home");
-        }
-      })
-      .catch((error) => console.log(error));
+    });
+    if (data) {
+      console.log("Success");
+      localStorage.setItem("token", `Bearer ${data.access_token}`);
+      localStorage.setItem("username", `${formValues.username}`);
+      history.push("/home");
+    }
   };
 
   useEffect(() => {
@@ -119,9 +116,9 @@ export default function Login() {
         <div className="flex justify-evenly p-6">
           <Button
             text="Login"
-            onClick={() => onSubmit}
+            onClick={() => {}}
             disabled={disabled}
-            className=" bg-purple-400 text-white "
+            className=" bg-purple-400 text-white"
           />
           <Button
             text="Register"

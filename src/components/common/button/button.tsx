@@ -13,7 +13,7 @@ export default function Button({
 }: ButtonType): JSX.Element {
   return (
     <button
-      className={` disabled:bg-red-500 border rounded-2xl px-5 py-1 ${className}`}
+      className={`disabled:opacity-50 border rounded-2xl px-5 py-1 ${className}`}
       onClick={onClick}
       disabled={disabled}
     >

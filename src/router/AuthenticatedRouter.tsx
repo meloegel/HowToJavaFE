@@ -7,6 +7,7 @@ import Logout from "../components/common/logout";
 import PrivateRoute from "./PrivateRoute";
 import Profile from "../components/account/Profile";
 import About from "../components/pages/about";
+import AddHowTo from '../components/pages/addHowto';
 
 export default function AuthenticatedRouter() {
   return (
@@ -19,6 +20,7 @@ export default function AuthenticatedRouter() {
           <PrivateRoute path={"/home"} component={Home} />
           <PrivateRoute path="/profile" component={Profile} />
           <PrivateRoute path="/about" component={About} />
+          <PrivateRoute path="/add-howto" component={AddHowTo} />
         </Switch>
       </UserContextProvider>
     </BrowserRouter>
