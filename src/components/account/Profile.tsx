@@ -18,32 +18,6 @@ export default function Profile(): JSX.Element {
   const [userId, setUserId] = useState();
   const token = window.localStorage.getItem("token");
 
-  useEffect(() => {
-    getInitialData();
-  }, []);
-
-  useEffect(() => {
-    if (data) {
-      var test = { username: "", primaryemail: "", roles: [], userid: "" };
-      test.username = data.username;
-      test.primaryemail = data.primaryemail;
-      test.roles = data.roles;
-      test.userid = data.userid;
-      setFormValues(test);
-      setUserId(data.userid);
-    }
-  }, [data]);
-
-  const getInitialData = () => {
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: token!,
-    };
-    request(`http://localhost:2019/users/getuserinfo`, {
-      method: "GET",
-      headers: headers,
-    });
-  };
 
   const onSubmit = (evt: any) => {
     evt.preventDefault();
@@ -63,7 +37,7 @@ export default function Profile(): JSX.Element {
       body: JSON.stringify(body),
       headers: headers,
     })
-      .then((res) => {
+      .then(() => {
         if (data) {
           console.log("Success");
           alert(`
@@ -84,6 +58,32 @@ export default function Profile(): JSX.Element {
       [evt.target.name]: evt.target.value,
     });
   };
+
+
+  useEffect(() => {
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: token!,
+    };
+    request(`http://localhost:2019/users/getuserinfo`, {
+      method: "GET",
+      headers: headers,
+    });
+  }, [request, token]);
+
+
+  useEffect(() => {
+    if (data) {
+      var test = { username: "", primaryemail: "", roles: [], userid: "" };
+      test.username = data.username;
+      test.primaryemail = data.primaryemail;
+      test.roles = data.roles;
+      test.userid = data.userid;
+      setFormValues(test);
+      setUserId(data.userid);
+    }
+  }, [data]);
+
 
   return (
     <div>
