@@ -18,7 +18,6 @@ export default function Profile(): JSX.Element {
   const [userId, setUserId] = useState();
   const token = window.localStorage.getItem("token");
 
-
   const onSubmit = (evt: any) => {
     evt.preventDefault();
     const body = {
@@ -59,7 +58,6 @@ export default function Profile(): JSX.Element {
     });
   };
 
-
   useEffect(() => {
     const headers = {
       "Content-Type": "application/json",
@@ -70,7 +68,6 @@ export default function Profile(): JSX.Element {
       headers: headers,
     });
   }, [request, token]);
-
 
   useEffect(() => {
     if (data) {
@@ -84,14 +81,13 @@ export default function Profile(): JSX.Element {
     }
   }, [data]);
 
-
   return (
     <div>
       <Header showUser={true} />
       <div>
-        <div className="grid grid-cols-4">
+        <div className="grid grid-cols-4 gap-6 p-4">
           <NavBar active={"profile"} className="" />
-          <form onSubmit={onSubmit} className="col-start-2 col-span-2 m-auto">
+          <form onSubmit={onSubmit} className="col-start-2 col-span-3 m-auto">
             <h2 className="text-center text-4xl p-4 mb-2">Profile</h2>
             <div className="flex justify-center p-4">
               <div className="text-right p-4">

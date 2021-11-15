@@ -2,7 +2,7 @@ import { useHistory } from "react-router";
 import NavButton from "./button/navButton";
 
 export type NavBarType = {
-  active: "home" | "profile" | "myhowto" | "howtos" | "logout";
+  active: "home" | "profile" | "myhowto" | "howtos" | "logout" | "about";
   className?: string;
 };
 
@@ -10,16 +10,18 @@ export default function NavBar(props: NavBarType): JSX.Element {
   const history = useHistory();
   return (
     <div>
-      <div className={`flex flex-col  p-4 bg-gray-200 ${props.className}`}>
+      <div
+        className={`flex flex-col p-4 w-min-96 max-w-foo bg-gray-200 ${props.className} `}
+      >
         <h4 className="text-xl font-bold text-center">Nav</h4>
         <NavButton
-          text="Home"
+          text="Howtos"
           onClick={() => history.push("/home")}
           active={props.active === "home"}
           className="m-2"
         />
         <NavButton
-          text="Howtos"
+          text="Add Howto"
           onClick={() => history.push("")}
           active={props.active === "howtos"}
           className="m-2"
@@ -34,6 +36,12 @@ export default function NavBar(props: NavBarType): JSX.Element {
           text="Profile"
           onClick={() => history.push("/profile")}
           active={props.active === "profile"}
+          className="m-2"
+        />
+        <NavButton
+          text="About"
+          onClick={() => history.push("/about")}
+          active={props.active === "about"}
           className="m-2"
         />
         <NavButton

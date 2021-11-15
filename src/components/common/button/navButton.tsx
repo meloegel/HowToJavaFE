@@ -26,7 +26,7 @@ export type NavButtonType = {
     }: NavButtonType): JSX.Element {
         return (
             <button
-              className={` disabled:bg-red-500 border-2 px-5 border-white py-1 bg-green-400  ${className}`}
+              className={` disabled:bg-red-500 border-2 px-5 py-6 text-lg border-white  bg-green-400  ${className}`}
               onClick={onClick}
               disabled={disabled}
             >
@@ -44,7 +44,7 @@ export type NavButtonType = {
     }: NavButtonType): JSX.Element {
         return (
             <button
-              className={` disabled:bg-red-500 border-2 px-5 py-1 border-white bg-black text-white ${className}`}
+              className={` disabled:bg-red-500 border-2 px-5 py-6 text-lg border-white bg-black text-white ${className}`}
               onClick={onClick}
               disabled={disabled}
             >
