@@ -8,7 +8,6 @@ import NavBar from "../common/navBar";
 import Button from "../common/button/button";
 import { useHistory } from "react-router";
 
-
 const initialFormValues = {
   name: "",
   description: "",
@@ -97,7 +96,7 @@ export default function AddHowto(): JSX.Element {
           alert(`
            Success!
            `);
-          // history.push("/");
+          history.push("/add-steps");
         }
       })
       .catch((error) => console.log(error));
@@ -109,24 +108,22 @@ export default function AddHowto(): JSX.Element {
       Authorization: token!,
     };
     request(`http://localhost:2019/users/getuserinfo`, {
-      method:"GET",
+      method: "GET",
       headers: headers,
-    })
+    });
   }, [request, token]);
-  
-  
+
   useEffect(() => {
     if (data) {
-      setUserId(data.userid)
+      setUserId(data.userid);
     }
-  }, [data])
+  }, [data]);
 
   useEffect(() => {
     howtoSchema.isValid(formValues).then((valid) => {
       setDisabled(!valid);
     });
   }, [formValues]);
-
 
   return (
     <div>

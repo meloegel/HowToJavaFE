@@ -9,6 +9,7 @@ import Profile from "../components/pages/Profile";
 import About from "../components/pages/about";
 import AddHowto from "../components/pages/addHowto";
 import MyHowtos from "../components/pages/myHowtos";
+import AddSteps from "../components/pages/addSteps";
 
 export default function AuthenticatedRouter() {
   return (
@@ -23,6 +24,7 @@ export default function AuthenticatedRouter() {
           <PrivateRoute path="/about" component={About} />
           <PrivateRoute path="/add-howto" component={AddHowto} />
           <PrivateRoute path="/my-howtos" component={MyHowtos} />
+          <PrivateRoute path="/add-steps" component={AddSteps} />
         </Switch>
       </UserContextProvider>
     </BrowserRouter>
