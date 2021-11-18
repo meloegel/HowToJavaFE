@@ -14,7 +14,7 @@ const initialFormErrors = {
 
 const initialDisabled = true;
 
-const initialSteps: string[] = []
+const initialSteps: string[] = [];
 
 export default function AddSteps(): JSX.Element {
   const [formValues, setFormValues] = useState(initialFormValues);
@@ -34,9 +34,14 @@ export default function AddSteps(): JSX.Element {
 
   const onStepSubmit = (evt: any) => {
     evt.preventDefault();
-    steps.push(formValues.step)
+    setSteps([...steps, formValues.step]);
   };
 
+  const removeLastStep = (evt: any) => {
+    evt.preventDefault();
+    setSteps([...steps.slice(0, -1)]);
+    console.log("fired");
+  };
 
   const onInputChange = (evt: any) => {
     const name = evt.target.name;
@@ -105,8 +110,8 @@ export default function AddSteps(): JSX.Element {
               )}
             </div>
           </div>
-          <div className="flex flex-col justify-center">
-            {(steps.length !== 0) ? <p>{steps.toString()}</p> : null}
+          <div className="flex flex-col justify-center text-center">
+            {steps.length !== 0 ? <p>{steps.toString()}</p> : null}
           </div>
           <form onSubmit={onStepSubmit}>
             <div className="p-2 text-center">
@@ -128,9 +133,7 @@ export default function AddSteps(): JSX.Element {
               />
               <Button
                 text="Remove Last Step"
-                onClick={() => {
-                  // history.push("/home");
-                }}
+                onClick={() => removeLastStep}
                 disabled={removeStepAndSubmitDisabled}
                 className=" bg-purple-400 text-white w-44 whitespace-nowrap"
               />
