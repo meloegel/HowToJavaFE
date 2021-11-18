@@ -81,6 +81,11 @@ export default function AddHowto(): JSX.Element {
       category: formValues.category,
       complexity: formValues.complexity,
     };
+    localStorage.setItem("userid", `${userId}`);
+    localStorage.setItem("name", `${formValues.name}`);
+    localStorage.setItem("description", `${formValues.description}`);
+    localStorage.setItem("category", `${formValues.category}`);
+    localStorage.setItem("complexity", `${formValues.complexity}`);
     const headers = {
       "Content-Type": "application/json",
       Authorization: token!,
@@ -91,8 +96,7 @@ export default function AddHowto(): JSX.Element {
       headers: headers,
     })
       .then(() => {
-        if (data) {
-          console.log("Success");
+        if (data.name) {
           alert(`
            Success!
            `);
