@@ -116,12 +116,14 @@ export default function Login() {
         <div className="flex justify-evenly p-6">
           <Button
             text="Login"
+            name="login"
             onClick={() => {}}
             disabled={disabled}
             className=" bg-purple-400 text-white"
           />
           <Button
             text="Register"
+            name="register"
             onClick={() => {
               history.push("/register");
             }}

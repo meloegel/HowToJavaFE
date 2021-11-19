@@ -144,6 +144,7 @@ export default function Register() {
         <div className="flex justify-evenly p-6">
           <Button
             text="Login"
+            name="login"
             onClick={() => {
               history.push("/");
             }}
@@ -151,6 +152,7 @@ export default function Register() {
           />
           <Button
             text="Submit"
+            name="submit"
             disabled={disabled}
             onClick={() => {}}
             className=" bg-gray-500 text-white "

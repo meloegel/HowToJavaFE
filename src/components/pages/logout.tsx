@@ -20,6 +20,7 @@ export default function Logout() {
           <div className="p-2">
             <Button
               text="Logout"
+              name="logout"
               onClick={() => {
                 handleLogout();
               }}
@@ -27,6 +28,7 @@ export default function Logout() {
             />
             <Button
               text="Go Back"
+              name="back"
               onClick={() => {
                 history.push("/home");
               }}

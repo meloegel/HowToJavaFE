@@ -1,4 +1,5 @@
 export type ButtonType = {
+  name:string;
   text: string;
   onClick?: () => void;
   disabled?: boolean;

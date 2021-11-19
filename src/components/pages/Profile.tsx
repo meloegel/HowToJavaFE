@@ -116,6 +116,7 @@ export default function Profile(): JSX.Element {
             <div className="flex justify-evenly p-6">
               <Button
                 text="Update Profile"
+                name="update"
                 onClick={() => {}}
                 className=" bg-gray-500 text-white"
               />

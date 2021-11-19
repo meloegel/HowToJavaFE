@@ -127,18 +127,14 @@ export default function AddSteps(): JSX.Element {
             <div className="flex justify-evenly p-6 w-1/2 m-auto">
               <Button
                 text="Add Step"
+                name="addStep"
                 onClick={() => onStepSubmit}
                 disabled={stepDisabled}
                 className=" bg-purple-400 text-white w-44"
               />
               <Button
-                text="Remove Last Step"
-                onClick={() => removeLastStep}
-                disabled={removeStepAndSubmitDisabled}
-                className=" bg-purple-400 text-white w-44 whitespace-nowrap"
-              />
-              <Button
                 text="Submit Steps"
+                name="submitSteps"
                 onClick={() => submitAllSteps}
                 disabled={removeStepAndSubmitDisabled}
                 className=" bg-purple-400 text-white w-44 whitespace-nowrap"

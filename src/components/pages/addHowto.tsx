@@ -188,12 +188,14 @@ export default function AddHowto(): JSX.Element {
           <div className="flex justify-evenly p-6 mt-10">
             <Button
               text="Submit"
+              name="submit"
               onClick={() => {}}
               disabled={disabled}
               className=" bg-purple-400 text-white"
             />
             <Button
               text="Cancel"
+              name="cancel"
               onClick={() => {
                 history.push("/home");
               }}
