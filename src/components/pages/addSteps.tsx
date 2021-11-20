@@ -23,6 +23,7 @@ export default function AddSteps(): JSX.Element {
   const [removeStepAndSubmitDisabled, setRemoveStepAndSubmitDisabled] =
     useState(initialDisabled);
   const [steps, setSteps] = useState(initialSteps);
+  const [submit, setSubmit] = useState(0);
   const token = window.localStorage.getItem("token");
   const userid = window.localStorage.getItem("userid");
   const name = window.localStorage.getItem("name");
@@ -30,17 +31,15 @@ export default function AddSteps(): JSX.Element {
   const category = window.localStorage.getItem("category");
   const complexity = window.localStorage.getItem("complexity");
 
-  const submitAllSteps = (evt: any) => {};
-
-  const onStepSubmit = (evt: any) => {
-    evt.preventDefault();
-    setSteps([...steps, formValues.step]);
-  };
-
-  const removeLastStep = (evt: any) => {
-    evt.preventDefault();
-    setSteps([...steps.slice(0, -1)]);
-    console.log("fired");
+  const onSubmit = (evt: any) => {
+    if (submit === 1) {
+      evt.preventDefault();
+      setSteps([...steps, formValues.step]);
+    } else if (submit === 2) {
+      evt.preventDefault();
+      setSteps(steps.slice(0, -1));
+    } else if (submit === 3) {
+    }
   };
 
   const onInputChange = (evt: any) => {
@@ -113,7 +112,7 @@ export default function AddSteps(): JSX.Element {
           <div className="flex flex-col justify-center text-center">
             {steps.length !== 0 ? <p>{steps.toString()}</p> : null}
           </div>
-          <form onSubmit={onStepSubmit}>
+          <form onSubmit={onSubmit}>
             <div className="p-2 text-center">
               <label htmlFor="name">Step</label>
               <input
@@ -128,14 +127,21 @@ export default function AddSteps(): JSX.Element {
               <Button
                 text="Add Step"
                 name="addStep"
-                onClick={() => onStepSubmit}
+                onClick={() => setSubmit(1)}
                 disabled={stepDisabled}
                 className=" bg-purple-400 text-white w-44"
               />
               <Button
                 text="Submit Steps"
                 name="submitSteps"
-                onClick={() => submitAllSteps}
+                onClick={() => setSubmit(3)}
+                disabled={removeStepAndSubmitDisabled}
+                className=" bg-purple-400 text-white w-44 whitespace-nowrap"
+              />
+              <Button
+                text="Remove Last Step"
+                name="remove"
+                onClick={() => setSubmit(2)}
                 disabled={removeStepAndSubmitDisabled}
                 className=" bg-purple-400 text-white w-44 whitespace-nowrap"
               />
