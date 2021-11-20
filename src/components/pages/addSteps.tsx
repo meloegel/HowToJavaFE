@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import * as yup from "yup";
+import useFetch from "../../hooks/useFetch";
 import stepSchema from "../../validation/stepSchema";
 import Button from "../common/button/button";
 import Header from "../common/header";
@@ -17,19 +19,21 @@ const initialDisabled = true;
 const initialSteps: string[] = [];
 
 export default function AddSteps(): JSX.Element {
+  const [request, data] = useFetch<any>();
+  const history = useHistory();
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [stepDisabled, setStepDisabled] = useState(initialDisabled);
-  const [removeStepAndSubmitDisabled, setRemoveStepAndSubmitDisabled] =
-    useState(initialDisabled);
+  const [removeStepDisabled, setRemoveStepDisabled] = useState(initialDisabled);
   const [steps, setSteps] = useState(initialSteps);
   const [submit, setSubmit] = useState(0);
   const token = window.localStorage.getItem("token");
   const userid = window.localStorage.getItem("userid");
-  const name = window.localStorage.getItem("name");
-  const description = window.localStorage.getItem("description");
-  const category = window.localStorage.getItem("category");
-  const complexity = window.localStorage.getItem("complexity");
+  const name = window.localStorage.getItem("howtoName");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [complexity, setComplexity] = useState("");
+  const [howtoID, setHowtoID] = useState(0);
 
   const onSubmit = (evt: any) => {
     if (submit === 1) {
@@ -39,6 +43,7 @@ export default function AddSteps(): JSX.Element {
       evt.preventDefault();
       setSteps(steps.slice(0, -1));
     } else if (submit === 3) {
+      history.push("/home");
     }
   };
 
@@ -74,11 +79,31 @@ export default function AddSteps(): JSX.Element {
 
   useEffect(() => {
     if (steps.length !== 0) {
-      setRemoveStepAndSubmitDisabled(false);
+      setRemoveStepDisabled(false);
     } else {
-      setRemoveStepAndSubmitDisabled(true);
+      setRemoveStepDisabled(true);
     }
   }, [steps]);
+
+  useEffect(() => {
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: token!,
+    };
+    request(`http://localhost:2019/howtos/howto/name/${name}`, {
+      method: "GET",
+      headers: headers,
+    });
+  }, [request, token]);
+
+  useEffect(() => {
+    if (data) {
+      setCategory(data.category);
+      setComplexity(data.complexity);
+      setDescription(data.description);
+      setHowtoID(data.id);
+    }
+  }, [data]);
 
   return (
     <div>
@@ -132,17 +157,16 @@ export default function AddSteps(): JSX.Element {
                 className=" bg-purple-400 text-white w-44"
               />
               <Button
-                text="Submit Steps"
-                name="submitSteps"
-                onClick={() => setSubmit(3)}
-                disabled={removeStepAndSubmitDisabled}
-                className=" bg-purple-400 text-white w-44 whitespace-nowrap"
-              />
-              <Button
                 text="Remove Last Step"
                 name="remove"
                 onClick={() => setSubmit(2)}
-                disabled={removeStepAndSubmitDisabled}
+                disabled={removeStepDisabled}
+                className=" bg-purple-400 text-white w-44 whitespace-nowrap"
+              />
+              <Button
+                text="Complete"
+                name="complete"
+                onClick={() => setSubmit(3)}
                 className=" bg-purple-400 text-white w-44 whitespace-nowrap"
               />
             </div>

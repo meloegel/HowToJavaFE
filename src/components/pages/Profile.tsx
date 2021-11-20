@@ -25,12 +25,10 @@ export default function Profile(): JSX.Element {
       username: formValues.username,
       primaryemail: formValues.primaryemail,
     };
-    console.log(JSON.stringify(body));
     const headers = {
       "Content-Type": "application/json",
       Authorization: token!,
     };
-    console.log(userId);
     request(`http://localhost:2019/users/user/${userId}`, {
       method: "PATCH",
       body: JSON.stringify(body),
