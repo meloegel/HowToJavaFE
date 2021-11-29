@@ -34,14 +34,35 @@ export default function AddSteps(): JSX.Element {
   const [category, setCategory] = useState("");
   const [complexity, setComplexity] = useState("");
   const [howtoID, setHowtoID] = useState(0);
+  const [stepID, setStepID] = useState(0);
 
   const onSubmit = (evt: any) => {
     if (submit === 1) {
       evt.preventDefault();
       setSteps([...steps, formValues.step]);
+      const body = {
+        step: formValues.step,
+      };
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: token!,
+      };
+      request(`http://localhost:2019/steps/step/${howtoID}`, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(body),
+      });
     } else if (submit === 2) {
       evt.preventDefault();
       setSteps(steps.slice(0, -1));
+      const headers = {
+        "Content-Type": "application/json",
+        Authorization: token!,
+      };
+      request(`http://localhost:2019/steps/step/${stepID}`, {
+        method: "DELETE",
+        headers: headers,
+      });
     } else if (submit === 3) {
       history.push("/home");
     }
@@ -97,11 +118,16 @@ export default function AddSteps(): JSX.Element {
   }, [request, token]);
 
   useEffect(() => {
+    console.log(data);
     if (data) {
-      setCategory(data.category);
-      setComplexity(data.complexity);
-      setDescription(data.description);
-      setHowtoID(data.id);
+      if (data.howtoid) {
+        setCategory(data.category);
+        setComplexity(data.complexity);
+        setDescription(data.description);
+        setHowtoID(data.howtoid);
+      } else if (data.stepid) {
+        setStepID(data.stepid)
+      }
     }
   }, [data]);
 
