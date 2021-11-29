@@ -28,7 +28,6 @@ export default function AddSteps(): JSX.Element {
   const [steps, setSteps] = useState(initialSteps);
   const [submit, setSubmit] = useState(0);
   const token = window.localStorage.getItem("token");
-  const userid = window.localStorage.getItem("userid");
   const name = window.localStorage.getItem("howtoName");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
