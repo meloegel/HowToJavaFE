@@ -117,6 +117,7 @@ export default function AddSteps(): JSX.Element {
     });
   }, [request, token]);
 
+
   useEffect(() => {
     console.log(data);
     if (data) {
@@ -160,8 +161,9 @@ export default function AddSteps(): JSX.Element {
               )}
             </div>
           </div>
-          <div className="flex flex-col justify-center text-center">
-            {steps.length !== 0 ? <p>{steps.toString()}</p> : null}
+          <div className="w-1/3 m-auto p-4 bg-purple-300">
+            <h2  className="text-center text-3xl p-4 mb-2">Steps</h2>
+            {steps.length !== 0 ? <p className="py-2 text-lg w-8 text-center m-auto leading-8">{steps.toString().replace(",", " ")}</p> : null}
           </div>
           <form onSubmit={onSubmit}>
             <div className="p-2 text-center">
