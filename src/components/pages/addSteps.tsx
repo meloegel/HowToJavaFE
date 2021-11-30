@@ -114,7 +114,7 @@ export default function AddSteps(): JSX.Element {
       method: "GET",
       headers: headers,
     });
-  }, [request, token]);
+  }, [request, token, name]);
 
 
   useEffect(() => {

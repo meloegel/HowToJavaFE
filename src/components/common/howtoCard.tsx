@@ -12,7 +12,7 @@ export type HowToCardType = {
 
 export default function HowToCard({name, description, category,complexity,user, howtoid}:HowToCardType):JSX.Element {
     const [request, data] = useFetch<any>();
-    const [steps, setSteps] = useState([])
+    const [steps, setSteps] = useState([] as any[])
     const token = window.localStorage.getItem("token");
 
     useEffect(() => {
@@ -24,7 +24,7 @@ export default function HowToCard({name, description, category,complexity,user, 
           method: "GET",
           headers: headers,
         });
-      }, [request, token]);
+      }, [request, token, howtoid]);
 
       useEffect(() => {
         console.log(data);
@@ -35,15 +35,15 @@ export default function HowToCard({name, description, category,complexity,user, 
 
 
     return (
-        <div>
+        <div className="p-4 border m-2">
             <h3>Name: {name}</h3>
             <p>Description: {description}</p>
             <p>Category: {category}</p>
-            <p>Complexity: {complexity}</p>
+            {(complexity !== null) ? <p>Complexity: {complexity}</p> : null}
             <p>User: {user}</p>
-            {steps.map(step => {
-                <p >{step}</p>
-            })}
+            {steps.map(step => (
+                <p >Step: {step.step}</p>
+            ))}
         </div>
     )
 }
