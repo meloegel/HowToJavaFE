@@ -8,7 +8,7 @@ import PrivateRoute from "./PrivateRoute";
 import Profile from "../components/pages/Profile";
 import About from "../components/pages/about";
 import AddHowto from "../components/pages/addHowto";
-import MyHowtos from "../components/pages/myHowtos";
+import Search from "../components/pages/search";
 import AddSteps from "../components/pages/addSteps";
 
 export default function AuthenticatedRouter() {
@@ -23,7 +23,7 @@ export default function AuthenticatedRouter() {
           <PrivateRoute path="/profile" component={Profile} />
           <PrivateRoute path="/about" component={About} />
           <PrivateRoute path="/add-howto" component={AddHowto} />
-          <PrivateRoute path="/my-howtos" component={MyHowtos} />
+          <PrivateRoute path="/search" component={Search} />
           <PrivateRoute path="/add-steps" component={AddSteps} />
         </Switch>
       </UserContextProvider>

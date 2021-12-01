@@ -8,6 +8,7 @@ export type HowToCardType = {
   category: string;
   complexity: string;
   user: string;
+  background: boolean;
 };
 
 export default function HowToCard({
@@ -17,6 +18,7 @@ export default function HowToCard({
   complexity,
   user,
   howtoid,
+  background
 }: HowToCardType): JSX.Element {
   const [request, data] = useFetch<any>();
   const [steps, setSteps] = useState([] as any[]);
@@ -41,7 +43,7 @@ export default function HowToCard({
   }, [data]);
 
   return (
-    <div className="p-8 border-2  m-auto mb-4 w-1/2 text-md bg-red-300 text-white font-medium">
+    <div className={`p-8 border-2  m-auto mb-4 w-1/2 text-md ${background ? "bg-red-300" : "bg-purple-500"} text-white font-medium`}>
       <h3 className="p-2 no-underline">
         Name: <span className="text-2xl underline">{name}</span>
       </h3>

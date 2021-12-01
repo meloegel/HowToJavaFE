@@ -21,10 +21,8 @@ export default function HomePage() {
   }, [request, token]);
 
   useEffect(() => {
-    console.log(data);
     if (data) {
       setHowtos(data);
-      console.log(howtos);
     }
   }, [data, howtos]);
 
@@ -36,9 +34,10 @@ export default function HomePage() {
         <div className="col-start-2 col-span-3 m-auto w-full">
           <h2 className="text-center text-4xl p-4 mb-2">Howtos</h2>
           {howtos !== []
-            ? howtos.map((howto): any => (
+            ? howtos.map((howto, key): any => (
                 <HowToCard
-                  key={howto.howtoid}
+                  key={key}
+                  background={key % 2 === 0}
                   howtoid={howto.howtoid}
                   name={howto.name}
                   description={howto.description}
