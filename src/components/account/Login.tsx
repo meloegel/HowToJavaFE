@@ -83,7 +83,7 @@ export default function Login() {
   }, [formValues]);
 
   return (
-    <div>
+    <div className="h-screen">
       <Header showUser={false} />
       <form onSubmit={onSubmit} className="bg-blue-300 w-1/2 m-auto p-4">
         <h2 className="text-center text-4xl p-4 mb-2">Login</h2>

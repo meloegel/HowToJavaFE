@@ -80,7 +80,7 @@ export default function Profile(): JSX.Element {
   }, [data]);
 
   return (
-    <div>
+    <div className="h-screen">
       <Header showUser={true} />
       <div>
         <div className="grid grid-cols-4 gap-6 p-4">

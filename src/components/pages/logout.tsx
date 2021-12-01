@@ -11,7 +11,7 @@ export default function Logout() {
   };
 
   return (
-    <div className="">
+    <div className="h-screen">
       <Header showUser={true}/>
       <div className=" grid grid-cols-4 gap-6 p-4">
         <NavBar active={"logout"} />

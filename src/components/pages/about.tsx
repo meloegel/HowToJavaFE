@@ -3,7 +3,7 @@ import NavBar from "../common/navBar";
 
 export default function About(): JSX.Element {
   return (
-    <div>
+    <div className="h-screen">
       <Header showUser={true} />
       <div className="grid gird-cols-4 gap-6 p-4">
         <NavBar active={"about"} />

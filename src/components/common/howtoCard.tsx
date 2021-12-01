@@ -35,7 +35,7 @@ export default function HowToCard({name, description, category,complexity,user, 
 
 
     return (
-        <div className="p-4 border m-2">
+        <div className="p-4 border m-2 w-full text-xl">
             <h3>Name: {name}</h3>
             <p>Description: {description}</p>
             <p>Category: {category}</p>

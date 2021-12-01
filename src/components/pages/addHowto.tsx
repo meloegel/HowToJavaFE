@@ -127,7 +127,7 @@ export default function AddHowto(): JSX.Element {
   }, [formValues]);
 
   return (
-    <div>
+    <div className="h-screen">
       <Header showUser={true} />
       <div className="grid gird-cols-4 gap-6 p-4">
         <NavBar active={"addhowto"} />
