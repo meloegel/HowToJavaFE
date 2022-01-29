@@ -16,13 +16,13 @@ const initialFormErrors = {
   password: "",
 };
 
-const initalDisabled = true;
+const initialDisabled = true;
 
 export default function Login() {
   const history = useHistory();
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
-  const [disabled, setDisabled] = useState(initalDisabled);
+  const [disabled, setDisabled] = useState(initialDisabled);
   const [request, data] = useFetch<any>();
 
   const onInputChange = (evt: any) => {
